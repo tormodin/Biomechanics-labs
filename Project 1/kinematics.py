@@ -6,7 +6,7 @@ import math
 ## Data for Normal walking - kinematics ##
 ## ------------------------------------ ##
 
-data_normwak = np.loadtxt("walking.txt",skiprows=1)
+data_normwak = np.loadtxt("Project 1\walking.txt",skiprows=1)
 
 ## Right gait ##
 ## ---------- ##
