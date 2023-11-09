@@ -6,7 +6,9 @@ import math
 ## Data for Normal walking - kinematics ##
 ## ------------------------------------ ##
 
-data_normwalk = np.loadtxt("Project 1\walking.txt",skiprows=1)
+data_normwalk = np.loadtxt("Project 1/walking.txt",skiprows=1)
+#data_normwalk = np.loadtxt("Project 1\walking.txt",skiprows=1)
+# i had to change \ to / to run the code /Tor
 
 ## Right gait ##
 ## ---------- ##
