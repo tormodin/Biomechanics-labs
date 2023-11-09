@@ -1,15 +1,33 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Load your kinematic and force plate data
-data = np.loadtxt("your_data_file.txt", skiprows=1)
+# Load kinematic and force plate data
+
+kinematic_data = np.loadtxt("walking.txt", skiprows=1)
+force_plate_data = np.loadtxt("walking_FP.txt", skiprows=1)
 
 # Constants and anthropometric data
 height = 1680  # in mm
 weight = 71.5  # in kg
 
+# Anthropometric data for thigh
+thigh_length = 400  # in mm
+thigh_mass_percentage = 10  # Replace with actual percentage
+thigh_com_percentage = 40  # Replace with actual percentage
+
+# Anthropometric data for shank
+shank_length = 400  # in mm
+shank_mass_percentage = 5  # Replace with actual percentage
+shank_com_percentage = 40  # Replace with actual percentage
+
+# Anthropometric data for foot
+foot_length = 200  # in mm
+foot_mass_percentage = 1  # Replace with actual percentage
+foot_com_percentage = 50  # Replace with actual percentage
+
 pelvis_mass_ratio = 0.142
 pelvis_COM_ratio = 0.25
+
 
 # Extract relevant columns from your data
 # ...
