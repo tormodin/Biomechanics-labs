@@ -30,16 +30,122 @@ pelvis_COM_ratio = 0.25
 
 
 # Extract relevant columns from your data
-# ...
+# Assuming your data variable is a NumPy array with appropriate column indices
+
+# Replace these indices with the actual column indices in your data
+time_index = 1
+pelvis_y_index = 4
+trunk_y_index = 7
+hip_y_index = 16
+knee_y_index = 19
+ankle_y_index = 22
+
+# Extract relevant columns from your data
+kinematics_time_column = kinematic_data[:, time_index]
+pelvis_y_column = kinematic_data[:, pelvis_y_index]
+trunk_y_column = kinematic_data[:, trunk_y_index]
+hip_y_column = kinematic_data[:, hip_y_index]
+knee_y_column = kinematic_data[:, knee_y_index]
+ankle_y_column = kinematic_data[:, ankle_y_index]
+
+# Now you have the y-coordinates for each joint in the sagittal plane
+# Assuming your data variable is a NumPy array with appropriate column indices
+
+# Replace these indices with the actual column indices in your data
+pelvis_z_index = 5
+trunk_z_index = 8
+hip_z_index = 17
+knee_z_index = 20
+ankle_z_index = 23
+
+# Extract relevant columns from your data
+pelvis_z_column = kinematic_data[:, pelvis_z_index]
+trunk_z_column = kinematic_data[:, trunk_z_index]
+hip_z_column = kinematic_data[:, hip_z_index]
+knee_z_column = kinematic_data[:, knee_z_index]
+ankle_z_column = kinematic_data[:, ankle_z_index]
+
+# Now you have the z-coordinates for each joint in the sagittal plane
+
 
 # Step 1: Calculate Joint Centers
-# ...
+#hip
+RHJC_y = (pelvis_y_column + hip_y_column) / 2
+RHJC_z = (pelvis_z_column + hip_z_column) / 2
+
+LHJC_y = (pelvis_y_column + hip_y_column) / 2  # Assuming symmetric placement
+LHJC_z = (pelvis_z_column + hip_z_column) / 2
+
+#knee
+RKJC_y = (hip_y_column + knee_y_column) / 2
+RKJC_z = (hip_z_column + knee_z_column) / 2
+
+LKJC_y = (hip_y_column + knee_y_column) / 2  # Assuming symmetric placement
+LKJC_z = (hip_z_column + knee_z_column) / 2
+#ankle
+RAJC_y = (knee_y_column + ankle_y_column) / 2
+RAJC_z = (knee_z_column + ankle_z_column) / 2
+
+LAJC_y = (knee_y_column + ankle_y_column) / 2  # Assuming symmetric placement
+LAJC_z = (knee_z_column + ankle_z_column) / 2
+
+#angles
+trunk_angle = np.degrees(np.arctan2(trunk_y_column - pelvis_y_column, trunk_z_column - pelvis_z_column))
+
+
+pelvis_angle = np.degrees(np.arctan2(pelvis_y_column - pelvis_y_column, pelvis_z_column - pelvis_z_column))
+
+hip_angle = np.degrees(np.arctan2(hip_y_column - pelvis_y_column, hip_z_column - pelvis_z_column))
+
+knee_angle = np.degrees(np.arctan2(knee_y_column - hip_y_column, knee_z_column - hip_z_column))
+
+ankle_angle = np.degrees(np.arctan2(ankle_y_column - knee_y_column, ankle_z_column - knee_z_column))
 
 # Step 2: Calculate Segment Positions
-# ...
+# Assuming symmetric placement of joints, let's calculate the segment positions in the sagittal plane
+
+# Pelvis position
+pelvis_position_y = pelvis_y_column
+pelvis_position_z = pelvis_z_column
+
+# Trunk position (assumed to be halfway between pelvis and thorax markers)
+trunk_position_y = (pelvis_y_column + trunk_y_column) / 2
+trunk_position_z = (pelvis_z_column + trunk_z_column) / 2
+
+# Right Hip position
+RHJC_position_y = RHJC_y
+RHJC_position_z = RHJC_z
+
+# Left Hip position
+LHJC_position_y = LHJC_y
+LHJC_position_z = LHJC_z
+
+# Right Knee position
+RKJC_position_y = RKJC_y
+RKJC_position_z = RKJC_z
+
+# Left Knee position
+LKJC_position_y = LKJC_y
+LKJC_position_z = LKJC_z
+
+# Right Ankle position
+RAJC_position_y = RAJC_y
+RAJC_position_z = RAJC_z
+
+# Left Ankle position
+LAJC_position_y = LAJC_y
+LAJC_position_z = LAJC_z
+
 
 # Step 3: Calculate Linear Accelerations
-# ...
+# Assuming time steps are constant
+dt = kinematics_time_column[1] - kinematics_time_column[0]
+
+# Pelvis linear accelerations
+pelvis_linear_acceleration_y = np.gradient(np.gradient(pelvis_position_y, dt), dt)
+pelvis_linear_acceleration_z = np.gradient(np.gradient(pelvis_position_z, dt), dt)
+
+# Repeat the above process for other joint centers and segment endpoints as needed
 
 # Step 4: Calculate Angular Accelerations
 # ...
