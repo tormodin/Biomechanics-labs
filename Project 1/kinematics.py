@@ -6,8 +6,8 @@ import math
 ## Data for Normal walking - kinematics ##
 ## ------------------------------------ ##
 
-data_normwalk = np.loadtxt("Project 1/walking.txt",skiprows=1)
-#data_normwalk = np.loadtxt("Project 1\walking.txt",skiprows=1)
+#data_normwalk = np.loadtxt("Project 1/walking.txt",skiprows=1)
+data_normwalk = np.loadtxt("Project 1\walking.txt",skiprows=1)
 # i had to change \ to / to run the code /Tor
 
 ## Right gait ##
@@ -203,7 +203,9 @@ fig, ax = plt.subplots()
 fig.set_size_inches(15, 8)
  
 ax.plot((tNormR-tNormR[0])/(tNormR[-1]-tNormR[0])*100,trunkangleR,c='mediumblue',label='Right Gait')
+ax.axvline((tNormR[270-tOnR-1]-tNormR[0])/(tNormR[-1]-tNormR[0])*100,color='mediumblue',linestyle='dotted',label='toe-off right gait')
 ax.plot((tNormL-tNormL[0])/(tNormL[-1]-tNormL[0])*100,trunkangleL, c='darkorange',label = 'Left Gait')
+ax.axvline((tNormL[316-tOnL-1]-tNormL[0])/(tNormL[-1]-tNormL[0])*100,color='darkorange',linestyle='dotted',label='toe-off left gait')
 
 plt.xlabel("Percentage of gait cycle [%]",fontsize=20)
 plt.ylabel("Trunk angle [°]",fontsize=20)
@@ -212,7 +214,14 @@ ax.grid('True')
 for tickLabel in plt.gca().get_xticklabels() + plt.gca().get_yticklabels():
   tickLabel.set_fontsize(16)
 
-#plt.axis([0.0,1.0,0.1,18])
+plt.text(-11, -3.5, 'Extension', color='red',fontsize=18, rotation=90)
+plt.text(-11, 0, 'Flexion', color='green',fontsize=18, rotation=90)
+plt.axhline(y=0, color='k')
+
+ax.vlines(x=0.2, ymin=0, ymax=1, color='green',linewidth=12)
+ax.vlines(x=0.2, ymin=-5, ymax=0, color='red',linewidth=12)
+
+plt.axis([0,100,-4,0.5])
 plt.legend(fontsize= 20)
 
 ## ------------------------------------ ##
@@ -320,15 +329,41 @@ fig1, ax1 = plt.subplots()
 fig1.set_size_inches(15, 8)
  
 ax1.plot((tNormR-tNormR[0])/(tNormR[-1]-tNormR[0])*100,trunkangleR,c='mediumblue',label='Normal Gait')
+ax1.axvline((tNormR[270-tOnR-1]-tNormR[0])/(tNormR[-1]-tNormR[0])*100,color='mediumblue',linestyle='dotted',label='toe-off normal gait')
 ax1.plot((tCrouchR-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,trunkangleC, c='darkorange',label = 'Crouch Gait')
+ax1.axvline((tCrouchR[484-tOn-1]-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,color='darkorange',linestyle='dotted',label='toe-off crouch gait')
 
 plt.xlabel("Percentage of gait cycle [%]",fontsize=20)
 plt.ylabel("Trunk angle [°]",fontsize=20)
-ax.grid('True')
+plt.grid('True')
+
+for tickLabel in plt.gca().get_xticklabels() + plt.gca().get_yticklabels():
+  tickLabel.set_fontsize(16)
+
+plt.text(-11, -4, 'Extension', color='red',fontsize=18, rotation=90)
+plt.text(-11, 11, 'Flexion', color='green',fontsize=18, rotation=90)
+plt.axhline(y=0, color='k')
+
+ax1.vlines(x=0.2, ymin=0, ymax=20, color='green',linewidth=12)
+ax1.vlines(x=0.2, ymin=-5, ymax=0, color='red',linewidth=12)
+
+plt.axis([0.0,100,-5,20])
+plt.legend(fontsize= 20)
+
+fig2, ax2 = plt.subplots()
+fig2.set_size_inches(15, 8)
+ 
+ax2.plot((tNormR-tNormR[0])/(tNormR[-1]-tNormR[0])*100,trunkangleR,c='mediumblue',label='Normal Gait')
+ax2.plot((tCrouchR-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,trunkangleC, c='darkorange',label = 'Crouch Gait')
+
+plt.xlabel("Percentage of gait cycle [%]",fontsize=20)
+plt.ylabel("Trunk angle [°]",fontsize=20)
+plt.grid('True')
 
 for tickLabel in plt.gca().get_xticklabels() + plt.gca().get_yticklabels():
   tickLabel.set_fontsize(16)
 
 #plt.axis([0.0,1.0,0.1,18])
 plt.legend(fontsize= 20)
+
 plt.show()
