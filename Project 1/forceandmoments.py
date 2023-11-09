@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 
 # Load kinematic and force plate data
 
-kinematic_data = np.loadtxt("walking.txt", skiprows=1)
-force_plate_data = np.loadtxt("walking_FP.txt", skiprows=1)
+kinematic_data = np.loadtxt("Project 1/walking.txt", skiprows=1)
+force_plate_data = np.loadtxt("Project 1/walking_FP.txt", skiprows=1)
 
 # Constants and anthropometric data
 height = 1680  # in mm
@@ -244,16 +244,22 @@ g = 9.81  # gravitational acceleration in m/s^2
 # Hip
 hip_mass = thigh_mass_percentage / 100 * weight
 hip_com_percentage = thigh_com_percentage / 100
+print("Type of hip_linear_acceleration_y:", type(hip_linear_acceleration_y))
+
+
+print("Shapes:")
+#print("hip_mass * hip_linear_acceleration_y:", hip_mass * hip_linear_acceleration_y.shape)
+print("force_plate_data[:, 4]:", force_plate_data[:, 4].shape)
+print("force_plate_data[:, 10]:", force_plate_data[:, 10].shape)
 
 
 
 # Net Joint Forces
-hip_force_y = hip_mass * hip_linear_acceleration_y + force_plate_data[:, 4] + force_plate_data[:, 10]
-hip_force_z = hip_mass * hip_linear_acceleration_z + force_plate_data[:, 5] + force_plate_data[:, 11]
+hip_force_y = hip_mass * hip_linear_acceleration_y + force_plate_data[:, 4][:, np.newaxis] + force_plate_data[:, 10][:, np.newaxis]
+hip_force_z = hip_mass * hip_linear_acceleration_z + force_plate_data[:, 5][:, np.newaxis] + force_plate_data[:, 11][:, np.newaxis]
 
-# Lever arms (distance between hip joint and force application point on the foot)
-hip_lever_arm_y = hip_position_y - (force_plate_data[:, 1] + force_plate_data[:, 7]) / 2
-hip_lever_arm_z = hip_position_z - (force_plate_data[:, 2] + force_plate_data[:, 8]) / 2
+hip_lever_arm_y = hip_position_y - (force_plate_data[:, 1][:, np.newaxis] + force_plate_data[:, 7][:, np.newaxis]) / 2
+hip_lever_arm_z = hip_position_z - (force_plate_data[:, 2][:, np.newaxis] + force_plate_data[:, 8][:, np.newaxis]) / 2
 
 # Net Joint Moments
 hip_moment_y = hip_force_z * hip_lever_arm_z - hip_force_y * hip_lever_arm_y
@@ -355,7 +361,22 @@ print("Ankle Plantarflexor Force:", ankle_plantarflexor_force)
 # ...
 
 # Step 10: Calculate Joint Power
-# ...
+# Plotting knee moments over time
+fig, ax = plt.subplots(figsize=(15, 8))
+
+# Plot knee moment in the y-axis
+ax.plot(kinematics_time_column, knee_moment_y_Nm, label='Knee Moment (Nm)', color='green')
+
+# Customize your plot
+ax.legend()
+ax.set_xlabel("Time [s]", fontsize=16)
+ax.set_ylabel("Knee Moment [Nm]", fontsize=16)
+ax.set_title("Knee Moment Over Time", fontsize=18)
+ax.grid(True)
+
+# Show the plot
+plt.show()
+
 
 # Step 11: Normalize Data if needed
 # ...
