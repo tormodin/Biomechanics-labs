@@ -68,7 +68,7 @@ ankle_z_column = kinematic_data[:, ankle_z_index]
 # Now you have the z-coordinates for each joint in the sagittal plane
 
 
-# Step 1: Calculate Joint Centers
+# Step 1: Calculate Joint Centers-------
 #hip
 RHJC_y = (pelvis_y_column + hip_y_column) / 2
 RHJC_z = (pelvis_z_column + hip_z_column) / 2
@@ -101,7 +101,7 @@ knee_angle = np.degrees(np.arctan2(knee_y_column - hip_y_column, knee_z_column -
 
 ankle_angle = np.degrees(np.arctan2(ankle_y_column - knee_y_column, ankle_z_column - knee_z_column))
 
-# Step 2: Calculate Segment Positions
+# Step 2: Calculate Segment Positions-------
 # Assuming symmetric placement of joints, let's calculate the segment positions in the sagittal plane
 
 # Pelvis position
@@ -137,26 +137,48 @@ LAJC_position_y = LAJC_y
 LAJC_position_z = LAJC_z
 
 
-# Step 3: Calculate Linear Accelerations
+# Step 3: Calculate Linear Accelerations-------
 # Assuming time steps are constant
 dt = kinematics_time_column[1] - kinematics_time_column[0]
 
 # Pelvis linear accelerations
 pelvis_linear_acceleration_y = np.gradient(np.gradient(pelvis_position_y, dt), dt)
 pelvis_linear_acceleration_z = np.gradient(np.gradient(pelvis_position_z, dt), dt)
+# Hip linear accelerations
+hip_linear_acceleration_y = np.gradient(np.gradient(hip_position_y, dt), dt)
+hip_linear_acceleration_z = np.gradient(np.gradient(hip_position_z, dt), dt)
 
-# Repeat the above process for other joint centers and segment endpoints as needed
+# Knee linear accelerations
+knee_linear_acceleration_y = np.gradient(np.gradient(knee_position_y, dt), dt)
+knee_linear_acceleration_z = np.gradient(np.gradient(knee_position_z, dt), dt)
 
-# Step 4: Calculate Angular Accelerations
+# Ankle linear accelerations
+ankle_linear_acceleration_y = np.gradient(np.gradient(ankle_position_y, dt), dt)
+ankle_linear_acceleration_z = np.gradient(np.gradient(ankle_position_z, dt), dt)
+
+
+# Step 4: Calculate Angular Accelerations-------
+
+# Hip angular accelerations
+hip_angular_acceleration_y = np.gradient(np.gradient(hip_angle, dt), dt)
+hip_angular_acceleration_z = np.gradient(np.gradient(hip_angle, dt), dt)
+
+# Knee angular accelerations
+knee_angular_acceleration_y = np.gradient(np.gradient(knee_angle, dt), dt)
+knee_angular_acceleration_z = np.gradient(np.gradient(knee_angle, dt), dt)
+
+# Ankle angular accelerations
+ankle_angular_acceleration_y = np.gradient(np.gradient(ankle_angle, dt), dt)
+ankle_angular_acceleration_z = np.gradient(np.gradient(ankle_angle, dt), dt)
+
+
+# Step 5: Calculate Net Joint Forces and Moments-------
 # ...
 
-# Step 5: Calculate Net Joint Forces and Moments
+# Step 6: Distribute Net Joint Forces-------
 # ...
 
-# Step 6: Distribute Net Joint Forces
-# ...
-
-# Step 7: Calculate Muscle Forces
+# Step 7: Calculate Muscle Forces-------
 # ...
 
 # Step 8: Calculate Joint Reaction Forces
