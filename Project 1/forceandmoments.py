@@ -28,6 +28,22 @@ foot_com_percentage = 50  # Replace with actual percentage
 pelvis_mass_ratio = 0.142
 pelvis_COM_ratio = 0.25
 
+thigh_mass = weight * (thigh_mass_percentage / 100)
+shank_mass = weight * (shank_mass_percentage / 100)
+foot_mass = weight * (foot_mass_percentage / 100)
+pelvis_mass = weight * pelvis_mass_ratio
+
+thigh_COM = thigh_length * (thigh_com_percentage / 100)
+shank_COM = shank_length * (shank_com_percentage / 100)
+foot_COM = foot_length * (foot_com_percentage / 100)
+pelvis_COM = height * pelvis_COM_ratio
+
+hip_mass = thigh_mass + pelvis_mass
+knee_mass = shank_mass
+ankle_mass = foot_mass
+
+
+
 
 # Extract relevant columns from your data
 # Assuming your data variable is a NumPy array with appropriate column indices
@@ -108,6 +124,19 @@ ankle_angle = np.degrees(np.arctan2(ankle_y_column - knee_y_column, ankle_z_colu
 pelvis_position_y = pelvis_y_column
 pelvis_position_z = pelvis_z_column
 
+# Hip position
+hip_position_y = hip_y_column
+hip_position_z = hip_z_column
+
+# Knee position
+knee_position_y = knee_y_column
+knee_position_z = knee_z_column
+
+# Ankle position
+ankle_position_y = ankle_y_column
+ankle_position_z = ankle_z_column
+
+
 # Trunk position (assumed to be halfway between pelvis and thorax markers)
 trunk_position_y = (pelvis_y_column + trunk_y_column) / 2
 trunk_position_z = (pelvis_z_column + trunk_z_column) / 2
@@ -171,12 +200,150 @@ knee_angular_acceleration_z = np.gradient(np.gradient(knee_angle, dt), dt)
 ankle_angular_acceleration_y = np.gradient(np.gradient(ankle_angle, dt), dt)
 ankle_angular_acceleration_z = np.gradient(np.gradient(ankle_angle, dt), dt)
 
+# Step 5: Calculate Net Joint Forces and Moments-------
+# Hip position
+hip_position_y = hip_y_column
+hip_position_z = hip_z_column
+
+# Net Joint Forces
+hip_force_y = hip_mass * hip_linear_acceleration_y
+hip_force_z = hip_mass * hip_linear_acceleration_z
+
+# Net Joint Moments
+hip_moment_y = hip_mass * hip_angular_acceleration_y
+hip_moment_z = hip_mass * hip_angular_acceleration_z
+
+# Knee
+knee_mass = shank_mass
+
+# Net Joint Forces
+knee_force_y = knee_mass * knee_linear_acceleration_y
+knee_force_z = knee_mass * knee_linear_acceleration_z
+
+# Net Joint Moments
+knee_moment_y = knee_mass * knee_angular_acceleration_y
+knee_moment_z = knee_mass * knee_angular_acceleration_z
+
+# Ankle
+ankle_mass = foot_mass
+
+# Net Joint Forces
+ankle_force_y = ankle_mass * ankle_linear_acceleration_y
+ankle_force_z = ankle_mass * ankle_linear_acceleration_z
+
+# Net Joint Moments
+ankle_moment_y = ankle_mass * ankle_angular_acceleration_y
+ankle_moment_z = ankle_mass * ankle_angular_acceleration_z
 
 # Step 5: Calculate Net Joint Forces and Moments-------
-# ...
+# Assuming symmetric placement of joints, let's calculate for the hip joint in the sagittal plane
+
+# Constants
+g = 9.81  # gravitational acceleration in m/s^2
+
+# Hip
+hip_mass = thigh_mass_percentage / 100 * weight
+hip_com_percentage = thigh_com_percentage / 100
+
+
+
+# Net Joint Forces
+hip_force_y = hip_mass * hip_linear_acceleration_y + force_plate_data[:, 4] + force_plate_data[:, 10]
+hip_force_z = hip_mass * hip_linear_acceleration_z + force_plate_data[:, 5] + force_plate_data[:, 11]
+
+# Lever arms (distance between hip joint and force application point on the foot)
+hip_lever_arm_y = hip_position_y - (force_plate_data[:, 1] + force_plate_data[:, 7]) / 2
+hip_lever_arm_z = hip_position_z - (force_plate_data[:, 2] + force_plate_data[:, 8]) / 2
+
+# Net Joint Moments
+hip_moment_y = hip_force_z * hip_lever_arm_z - hip_force_y * hip_lever_arm_y
+
+# Convert forces and moments to N and Nm
+hip_force_y_N = hip_force_y / 1000  # Convert to N
+hip_force_z_N = hip_force_z / 1000
+hip_moment_y_Nm = hip_moment_y / 1000  # Convert to Nm
+
+# Display the results
+print("Hip Net Joint Forces (N):")
+print("Y-axis:", hip_force_y_N)
+print("Z-axis:", hip_force_z_N)
+
+print("\nHip Net Joint Moments (Nm):")
+print("Y-axis:", hip_moment_y_Nm)
+
+# Convert forces and moments to N and Nm for Knee
+knee_force_y_N = knee_force_y / 1000  # Convert to N
+knee_force_z_N = knee_force_z / 1000
+knee_moment_y_Nm = knee_moment_y / 1000  # Convert to Nm
+
+# Display the results for Knee
+print("\nKnee Net Joint Forces (N):")
+print("Y-axis:", knee_force_y_N)
+print("Z-axis:", knee_force_z_N)
+
+print("\nKnee Net Joint Moments (Nm):")
+print("Y-axis:", knee_moment_y_Nm)
+
+
+# Convert forces and moments to N and Nm for Ankle
+ankle_force_y_N = ankle_force_y / 1000  # Convert to N
+ankle_force_z_N = ankle_force_z / 1000
+ankle_moment_y_Nm = ankle_moment_y / 1000  # Convert to Nm
+
+# Display the results for Ankle
+print("\nAnkle Net Joint Forces (N):")
+print("Y-axis:", ankle_force_y_N)
+print("Z-axis:", ankle_force_z_N)
+
+print("\nAnkle Net Joint Moments (Nm):")
+print("Y-axis:", ankle_moment_y_Nm)
+
 
 # Step 6: Distribute Net Joint Forces-------
-# ...
+# Step 6: Distribute Net Joint Forces-------
+# Assuming you have information about muscle moment arms and activation levels
+# You might need to replace the placeholders with actual values based on your model
+
+# Placeholder values, replace with actual data
+hip_abductor_moment_arm = 0.1  # Example moment arm for the hip abductors
+hip_extensor_moment_arm = 0.2  # Example moment arm for the hip extensors
+knee_flexor_moment_arm = 0.15  # Example moment arm for the knee flexors
+knee_extensor_moment_arm = 0.25  # Example moment arm for the knee extensors
+ankle_dorsiflexor_moment_arm = 0.1  # Example moment arm for the ankle dorsiflexors
+ankle_plantarflexor_moment_arm = 0.2  # Example moment arm for the ankle plantarflexors
+
+
+# Distribute net joint forces to muscles based on moment arms
+hip_abductor_force = hip_force_y_N / hip_abductor_moment_arm
+hip_extensor_force = hip_force_y_N / hip_extensor_moment_arm
+
+
+# Distribute net joint forces to muscles based on moment arms
+knee_flexor_force = knee_force_y_N / knee_flexor_moment_arm
+knee_extensor_force = knee_force_y_N / knee_extensor_moment_arm
+
+# Distribute net joint forces to muscles based on moment arms
+ankle_dorsiflexor_force = ankle_force_y_N / ankle_dorsiflexor_moment_arm
+ankle_plantarflexor_force = ankle_force_y_N / ankle_plantarflexor_moment_arm
+
+
+# Display the distributed forces
+print("\nDistributed Muscle Forces (N):")
+print("Hip Abductor Force:", hip_abductor_force)
+print("Hip Extensor Force:", hip_extensor_force)
+
+# Display the distributed forces
+print("\nDistributed Muscle Forces at Knee (N):")
+print("Knee Flexor Force:", knee_flexor_force)
+print("Knee Extensor Force:", knee_extensor_force)
+
+# Display the distributed forces
+print("\nDistributed Muscle Forces at Ankle (N):")
+print("Ankle Dorsiflexor Force:", ankle_dorsiflexor_force)
+print("Ankle Plantarflexor Force:", ankle_plantarflexor_force)
+
+
+
 
 # Step 7: Calculate Muscle Forces-------
 # ...
@@ -192,7 +359,7 @@ ankle_angular_acceleration_z = np.gradient(np.gradient(ankle_angle, dt), dt)
 
 # Step 11: Normalize Data if needed
 # ...
-
+""""
 # Plotting (you can add more plots as needed)
 fig, ax = plt.subplots(figsize=(15, 8))
 
@@ -202,9 +369,11 @@ ax.plot(data[:, 1], data[:, 33], label='Trunk Angle', color='blue')
 # Add more plots for joint angles, moments, powers, etc.
 
 # Customize your plot
+
 ax.legend()
 ax.set_xlabel("Time [s]", fontsize=16)
 ax.set_ylabel("Angle/Force/Moment", fontsize=16)
 ax.grid(True)
 
 plt.show()
+"""
