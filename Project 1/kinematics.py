@@ -196,14 +196,14 @@ for i in range(tOffL - tOnL):
     angle_degrees = math.degrees(angle_radians)
     ankleangleL[i] = angle_degrees - angle_degrees_shank
 
+
 fig, ax = plt.subplots()
 fig.set_size_inches(15, 8)
  
-ax.plot((tNormR-tNormR[0])/(tNormR[-1]-tNormR[0]),trunkangleR,c='mediumblue',label='Right Gait')
-ax.plot((tNormL-tNormL[0])/(tNormL[-1]-tNormL[0]),trunkangleL, c='darkorange',label = 'Left Gait')
+ax.plot((tNormR-tNormR[0])/(tNormR[-1]-tNormR[0])*100,trunkangleR,c='mediumblue',label='Right Gait')
+ax.plot((tNormL-tNormL[0])/(tNormL[-1]-tNormL[0])*100,trunkangleL, c='darkorange',label = 'Left Gait')
 
-plt.legend()
-plt.xlabel("Time [s]",fontsize=20)
+plt.xlabel("Percentage of gait cycle [%]",fontsize=20)
 plt.ylabel("Trunk angle [°]",fontsize=20)
 ax.grid('True')
 
@@ -212,7 +212,6 @@ for tickLabel in plt.gca().get_xticklabels() + plt.gca().get_yticklabels():
 
 #plt.axis([0.0,1.0,0.1,18])
 plt.legend(fontsize= 20)
-plt.show()
 
 ## ------------------------------------ ##
 ## Data for Crouch walking - kinematics ##
@@ -230,10 +229,10 @@ tCrouchR = data_crouchwalk[tOn:tOff,1]
 ## Trunk angle : TRXO upper & TRXP lower ##
 
 trxoCX = data_crouchwalk[tOn:tOff,33]
-trxoCY = data_normwalk[tOn:tOff,34]
+trxoCY = data_crouchwalk[tOn:tOff,34]
 
-trxpCX = data_normwalk[tOn:tOff,36]
-trxpCY = data_normwalk[tOn:tOff,37]
+trxpCX = data_crouchwalk[tOn:tOff,36]
+trxpCY = data_crouchwalk[tOn:tOff,37]
 
 trunkangleC = np.zeros_like(tCrouchR)
 
@@ -313,3 +312,21 @@ for i in range(tOff - tOn):
     angle_radians = math.atan2(deltay,deltax)
     angle_degrees = math.degrees(angle_radians)
     ankleangleC[i] = angle_degrees - angle_degrees_shank
+
+
+fig1, ax1 = plt.subplots()
+fig1.set_size_inches(15, 8)
+ 
+ax1.plot((tNormR-tNormR[0])/(tNormR[-1]-tNormR[0])*100,trunkangleR,c='mediumblue',label='Normal Gait')
+ax1.plot((tCrouchR-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,trunkangleC, c='darkorange',label = 'Crouch Gait')
+
+plt.xlabel("Percentage of gait cycle [%]",fontsize=20)
+plt.ylabel("Trunk angle [°]",fontsize=20)
+ax.grid('True')
+
+for tickLabel in plt.gca().get_xticklabels() + plt.gca().get_yticklabels():
+  tickLabel.set_fontsize(16)
+
+#plt.axis([0.0,1.0,0.1,18])
+plt.legend(fontsize= 20)
+plt.show()
