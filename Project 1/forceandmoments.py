@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 
 # Load kinematic and force plate data
 
-kinematic_data = np.loadtxt("Project 1/walking.txt", skiprows=1)
-force_plate_data = np.loadtxt("Project 1/walking_FP.txt", skiprows=1)
+kinematic_data = np.loadtxt("Project 1/walking.txt", skiprows=1) #You can take this from the code kinematics
+force_plate_data = np.loadtxt("Project 1/walking_FP.txt", skiprows=1) 
 
 # Constants and anthropometric data
 height = 1680  # in mm
@@ -41,7 +41,7 @@ pelvis_COM = height * pelvis_COM_ratio
 hip_mass = thigh_mass + pelvis_mass
 knee_mass = shank_mass
 ankle_mass = foot_mass
-
+#Until here I think it is great
 
 
 
@@ -57,7 +57,7 @@ knee_y_index = 19
 ankle_y_index = 22
 
 # Extract relevant columns from your data
-kinematics_time_column = kinematic_data[:, time_index]
+kinematics_time_column = kinematic_data[:, time_index] #Take frame of gait like in line 16 to 22 of kinematics
 pelvis_y_column = kinematic_data[:, pelvis_y_index]
 trunk_y_column = kinematic_data[:, trunk_y_index]
 hip_y_column = kinematic_data[:, hip_y_index]
@@ -84,7 +84,7 @@ ankle_z_column = kinematic_data[:, ankle_z_index]
 # Now you have the z-coordinates for each joint in the sagittal plane
 
 
-# Step 1: Calculate Joint Centers-------
+# Step 1: Calculate Joint Centers------- #We arleady have that 
 #hip
 RHJC_y = (pelvis_y_column + hip_y_column) / 2
 RHJC_z = (pelvis_z_column + hip_z_column) / 2
@@ -105,7 +105,7 @@ RAJC_z = (knee_z_column + ankle_z_column) / 2
 LAJC_y = (knee_y_column + ankle_y_column) / 2  # Assuming symmetric placement
 LAJC_z = (knee_z_column + ankle_z_column) / 2
 
-#angles
+#angles -> All these angles are already in kinematics
 trunk_angle = np.degrees(np.arctan2(trunk_y_column - pelvis_y_column, trunk_z_column - pelvis_z_column))
 
 
@@ -117,7 +117,7 @@ knee_angle = np.degrees(np.arctan2(knee_y_column - hip_y_column, knee_z_column -
 
 ankle_angle = np.degrees(np.arctan2(ankle_y_column - knee_y_column, ankle_z_column - knee_z_column))
 
-# Step 2: Calculate Segment Positions-------
+# Step 2: Calculate Segment Positions------- # I think we can skip this because it just renames the variables
 # Assuming symmetric placement of joints, let's calculate the segment positions in the sagittal plane
 
 # Pelvis position
@@ -166,7 +166,7 @@ LAJC_position_y = LAJC_y
 LAJC_position_z = LAJC_z
 
 
-# Step 3: Calculate Linear Accelerations-------
+# Step 3: Calculate Linear Accelerations------- # Be carefull to take the two time steps before the inital frame because we derivate twice
 # Assuming time steps are constant
 dt = kinematics_time_column[1] - kinematics_time_column[0]
 
@@ -200,7 +200,9 @@ knee_angular_acceleration_z = np.gradient(np.gradient(knee_angle, dt), dt)
 ankle_angular_acceleration_y = np.gradient(np.gradient(ankle_angle, dt), dt)
 ankle_angular_acceleration_z = np.gradient(np.gradient(ankle_angle, dt), dt)
 
-# Step 5: Calculate Net Joint Forces and Moments-------
+#First compute the Center of mass of each segment using the positions of its ends (in file walking.txt) + angles of each segment (in code kinematics.txt)
+
+# Step 5: Calculate Net Joint Forces and Moments------- #Rewriting the equations we did in course 4
 # Hip position
 hip_position_y = hip_y_column
 hip_position_z = hip_z_column
