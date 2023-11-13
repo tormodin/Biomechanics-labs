@@ -237,7 +237,24 @@ print("Knee Extensor Force:", knee_extensor_force)
 print("\nDistributed Muscle Forces at Ankle (N):")
 print("Ankle Dorsiflexor Force:", ankle_dorsiflexor_force)
 print("Ankle Plantarflexor Force:", ankle_plantarflexor_force)
+#code to give correct variable names
+# Moment on the Foot
+M_foot = dAx * FAy - dAy * FAx + dGR * FGR
 
+# Moment on the Shank
+FAx = mjax - FGRx
+FAy = mjay + mfg - FGRy
+MA_shank = IfG * g + dAx * FAy + dAy * FAx - dGR * FGR
+
+# Moment on the Ankle
+MA_ankle = msax - FAx
+FKy = msay + FAy + msg
+HK_ankle = ISG_s - dkx * FKy + dky * FAx + MA_ankle - (ls - dk) * FAy + (ls - dks) * FAx
+
+# Moment on the Thigh
+FHx = mTax + Fkx
+FHy = mTay + mTg + FKy
+HH_thigh = ITG_T - dHx * FHy + dHy * FHx + HK_ankle + (lT - dH) * FKy - (lT - dH) * Fkx
 
 
 
