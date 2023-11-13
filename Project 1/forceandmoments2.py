@@ -11,6 +11,14 @@ kinematic_data = np.loadtxt("Project 1/walking.txt", skiprows=1)
 height = 1680  # in mm
 weight = 71.5  # in kg
 
+
+#have to redo
+hip_y_index = 16
+hip_y_column = kinematic_data[:, hip_y_index]
+
+hip_z_index = 17
+hip_z_column = kinematic_data[:, hip_z_index]
+
 # Anthropometric data for thigh
 thigh_length = 400  # in mm
 thigh_mass_percentage = 10  # Replace with actual percentage
@@ -71,8 +79,8 @@ ankle_linear_acceleration_z = np.gradient(np.gradient(ankleRX, dt), dt)
 # Step 4: Calculate Angular Accelerations------- #not sure about the data
 
 # Hip angular accelerations
-hip_angular_acceleration_y = np.gradient(np.gradient(angle_degrees_hip, dt), dt)
-hip_angular_acceleration_z = np.gradient(np.gradient(angle_degrees_hip, dt), dt)
+hip_angular_acceleration_y = np.gradient(np.gradient(hipangleR, dt), dt)
+hip_angular_acceleration_z = np.gradient(np.gradient(hipangleR, dt), dt)
 
 # Knee angular accelerations
 knee_angular_acceleration_y = np.gradient(np.gradient(kneeangleR, dt), dt)
@@ -81,6 +89,111 @@ knee_angular_acceleration_z = np.gradient(np.gradient(kneeangleR, dt), dt)
 # Ankle angular accelerations
 ankle_angular_acceleration_y = np.gradient(np.gradient(ankleangleR, dt), dt)
 ankle_angular_acceleration_z = np.gradient(np.gradient(ankleangleR, dt), dt)
+
+# Step 5: Calculate Net Joint Forces and Moments------- #Rewriting the equations we did in course 4
+# Hip position
+hip_position_y = hip_y_column
+hip_position_z = hip_z_column
+
+# Net Joint Forces
+hip_force_y = hip_mass * hip_linear_acceleration_y
+hip_force_z = hip_mass * hip_linear_acceleration_z
+
+# Net Joint Moments
+hip_moment_y = hip_mass * hip_angular_acceleration_y
+hip_moment_z = hip_mass * hip_angular_acceleration_z
+
+# Knee
+knee_mass = shank_mass
+
+# Net Joint Forces
+knee_force_y = knee_mass * knee_linear_acceleration_y
+knee_force_z = knee_mass * knee_linear_acceleration_z
+
+# Net Joint Moments
+knee_moment_y = knee_mass * knee_angular_acceleration_y
+knee_moment_z = knee_mass * knee_angular_acceleration_z
+
+# Ankle
+ankle_mass = foot_mass
+
+# Net Joint Forces
+ankle_force_y = ankle_mass * ankle_linear_acceleration_y
+ankle_force_z = ankle_mass * ankle_linear_acceleration_z
+
+# Net Joint Moments
+ankle_moment_y = ankle_mass * ankle_angular_acceleration_y
+ankle_moment_z = ankle_mass * ankle_angular_acceleration_z
+
+# Step 5: Calculate Net Joint Forces and Moments-------
+# Assuming symmetric placement of joints, let's calculate for the hip joint in the sagittal plane
+
+# Constants
+g = 9.81  # gravitational acceleration in m/s^2
+
+# Hip
+hip_mass = thigh_mass_percentage / 100 * weight
+hip_com_percentage = thigh_com_percentage / 100
+print("Type of hip_linear_acceleration_y:", type(hip_linear_acceleration_y))
+
+
+print("Shapes:")
+#print("hip_mass * hip_linear_acceleration_y:", hip_mass * hip_linear_acceleration_y.shape)
+print("force_plate_data[:, 4]:", force_plate_data[:, 4].shape)
+print("force_plate_data[:, 10]:", force_plate_data[:, 10].shape)
+
+
+
+# Net Joint Forces
+hip_force_y = hip_mass * hip_linear_acceleration_y + force_plate_data[:, 4][:, np.newaxis] + force_plate_data[:, 10][:, np.newaxis]
+hip_force_z = hip_mass * hip_linear_acceleration_z + force_plate_data[:, 5][:, np.newaxis] + force_plate_data[:, 11][:, np.newaxis]
+
+hip_lever_arm_y = hip_position_y - (force_plate_data[:, 1][:, np.newaxis] + force_plate_data[:, 7][:, np.newaxis]) / 2
+hip_lever_arm_z = hip_position_z - (force_plate_data[:, 2][:, np.newaxis] + force_plate_data[:, 8][:, np.newaxis]) / 2
+
+# Net Joint Moments
+hip_moment_y = hip_force_z * hip_lever_arm_z - hip_force_y * hip_lever_arm_y
+
+# Convert forces and moments to N and Nm
+hip_force_y_N = hip_force_y / 1000  # Convert to N
+hip_force_z_N = hip_force_z / 1000
+hip_moment_y_Nm = hip_moment_y / 1000  # Convert to Nm
+
+# Display the results
+print("Hip Net Joint Forces (N):")
+print("Y-axis:", hip_force_y_N)
+print("Z-axis:", hip_force_z_N)
+
+print("\nHip Net Joint Moments (Nm):")
+print("Y-axis:", hip_moment_y_Nm)
+
+# Convert forces and moments to N and Nm for Knee
+knee_force_y_N = knee_force_y / 1000  # Convert to N
+knee_force_z_N = knee_force_z / 1000
+knee_moment_y_Nm = knee_moment_y / 1000  # Convert to Nm
+
+# Display the results for Knee
+print("\nKnee Net Joint Forces (N):")
+print("Y-axis:", knee_force_y_N)
+print("Z-axis:", knee_force_z_N)
+
+print("\nKnee Net Joint Moments (Nm):")
+print("Y-axis:", knee_moment_y_Nm)
+
+
+# Convert forces and moments to N and Nm for Ankle
+ankle_force_y_N = ankle_force_y / 1000  # Convert to N
+ankle_force_z_N = ankle_force_z / 1000
+ankle_moment_y_Nm = ankle_moment_y / 1000  # Convert to Nm
+
+# Display the results for Ankle
+print("\nAnkle Net Joint Forces (N):")
+print("Y-axis:", ankle_force_y_N)
+print("Z-axis:", ankle_force_z_N)
+
+print("\nAnkle Net Joint Moments (Nm):")
+print("Y-axis:", ankle_moment_y_Nm)
+
 
 
 # Step 10: Calculate Joint Power

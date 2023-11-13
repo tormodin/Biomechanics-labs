@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 # Load kinematic and force plate data
 
-from kinematics.py import *
+from kinematics import *
 kinematic_data = np.loadtxt("Project 1/walking.txt", skiprows=1) #You can take this from the code kinematics----
 force_plate_data = np.loadtxt("Project 1/walking_FP.txt", skiprows=1) 
 
