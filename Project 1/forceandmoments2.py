@@ -230,14 +230,13 @@ print("Hip Extensor Force:", hip_extensor_force)
 print("\nDistributed Muscle Forces at Knee (N):")
 print("Knee Flexor Force:", knee_flexor_force)
 print("Knee Extensor Force:", knee_extensor_force)
-
+"""
 # Display the distributed forces
 print("\nDistributed Muscle Forces at Ankle (N):")
 print("Ankle Dorsiflexor Force:", ankle_dorsiflexor_force)
 print("Ankle Plantarflexor Force:", ankle_plantarflexor_force)
 
 
-"""
 
 
 
