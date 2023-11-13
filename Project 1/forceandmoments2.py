@@ -7,6 +7,8 @@ from kinematics import *
 
 force_plate_data = np.loadtxt("Project 1/walking_FP.txt", skiprows=1) 
 kinematic_data = np.loadtxt("Project 1/walking.txt", skiprows=1)
+
+
 # Constants and anthropometric data
 height = 1680  # in mm
 weight = 71.5  # in kg
