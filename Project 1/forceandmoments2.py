@@ -125,7 +125,7 @@ ankle_force_z = ankle_mass * ankle_linear_acceleration_z
 ankle_moment_y = ankle_mass * ankle_angular_acceleration_y
 ankle_moment_z = ankle_mass * ankle_angular_acceleration_z
 
-# Step 5: Calculate Net Joint Forces and Moments-------
+# Step 6: Calculate Net Joint Forces and Moments-------
 # Assuming symmetric placement of joints, let's calculate for the hip joint in the sagittal plane
 
 # Constants
@@ -193,6 +193,51 @@ print("Z-axis:", ankle_force_z_N)
 
 print("\nAnkle Net Joint Moments (Nm):")
 print("Y-axis:", ankle_moment_y_Nm)
+
+# Step 7: Distribute Net Joint Forces-------
+# Assuming you have information about muscle moment arms and activation levels
+# You might need to replace the placeholders with actual values based on your model
+
+# Placeholder values, replace with actual data
+hip_abductor_moment_arm = 0.1  # Example moment arm for the hip abductors
+hip_extensor_moment_arm = 0.2  # Example moment arm for the hip extensors
+knee_flexor_moment_arm = 0.15  # Example moment arm for the knee flexors
+knee_extensor_moment_arm = 0.25  # Example moment arm for the knee extensors
+ankle_dorsiflexor_moment_arm = 0.1  # Example moment arm for the ankle dorsiflexors
+ankle_plantarflexor_moment_arm = 0.2  # Example moment arm for the ankle plantarflexors
+
+
+# Distribute net joint forces to muscles based on moment arms
+hip_abductor_force = hip_force_y_N / hip_abductor_moment_arm
+hip_extensor_force = hip_force_y_N / hip_extensor_moment_arm
+
+
+# Distribute net joint forces to muscles based on moment arms
+knee_flexor_force = knee_force_y_N / knee_flexor_moment_arm
+knee_extensor_force = knee_force_y_N / knee_extensor_moment_arm
+
+# Distribute net joint forces to muscles based on moment arms
+ankle_dorsiflexor_force = ankle_force_y_N / ankle_dorsiflexor_moment_arm
+ankle_plantarflexor_force = ankle_force_y_N / ankle_plantarflexor_moment_arm
+
+"""
+# Display the distributed forces
+print("\nDistributed Muscle Forces (N):")
+print("Hip Abductor Force:", hip_abductor_force)
+print("Hip Extensor Force:", hip_extensor_force)
+
+# Display the distributed forces
+print("\nDistributed Muscle Forces at Knee (N):")
+print("Knee Flexor Force:", knee_flexor_force)
+print("Knee Extensor Force:", knee_extensor_force)
+
+# Display the distributed forces
+print("\nDistributed Muscle Forces at Ankle (N):")
+print("Ankle Dorsiflexor Force:", ankle_dorsiflexor_force)
+print("Ankle Plantarflexor Force:", ankle_plantarflexor_force)
+
+
+"""
 
 
 
