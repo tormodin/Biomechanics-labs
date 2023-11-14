@@ -177,18 +177,18 @@ alphafR = np.gradient(omegafR,tNormR)
 dA_x, dA_y = calculate_distance_vector(Cfx,Cfy,ankleRX,ankleRY)
 dG_x,dG_y = calculate_distance_vector(Cfx,Cfy,F_x_R,F_y_R)
 
-F_AX_R = mf*afRx - F_gR_X
-F_AY_R = mf*afRy + mf*g - F_gR_Y
-M_A = If*alphafR - dA_x*F_AY_R + dA_y*F_AX_R - dG_x*F_gR_Y + dG_y*F_gR_X
+F_Ax_R = mf*afRx - F_gR_X
+F_Ay_R = mf*afRy + mf*g - F_gR_Y
+M_A_r = If*alphafR - dA_x*F_Ay_R + dA_y*F_Ax_R - dG_x*F_gR_Y + dG_y*F_gR_X
 
-print(M_A)
+print(M_A_r)
 
 # Ankle angle comparison #
 
 fig40, ax40 = plt.subplots()
 fig40.set_size_inches(15, 8)
  
-ax40.plot((tNormR-tNormR[0])/(tNormR[-1]-tNormR[0])*100,M_A,c='mediumblue',label='Normal Gait')
+ax40.plot((tNormR-tNormR[0])/(tNormR[-1]-tNormR[0])*100,M_A_r,c='mediumblue',label='Normal Gait')
 # ax40.axvline((tNormR[270-tOnR-1]-tNormR[0])/(tNormR[-1]-tNormR[0])*100,color='mediumblue',linestyle='dotted',label='toe-off normal gait')
 # ax40.plot((tCrouchR-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,ankleangleC, c='darkorange',label = 'Crouch Gait')
 # ax40.axvline((tCrouchR[484-tOn-1]-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,color='darkorange',linestyle='dotted',label='toe-off crouch gait')
