@@ -3,9 +3,9 @@ import matplotlib.pyplot as plt
 
 # Load kinematic and force plate data
 
-from kinematics import *
-#kinematic_data = np.loadtxt("Project 1/walking.txt", skiprows=1) #You can take this from the code kinematics----
-#force_plate_data = np.loadtxt("Project 1/walking_FP.txt", skiprows=1) 
+
+kinematic_data = np.loadtxt("Project 1/walking.txt", skiprows=1) #You can take this from the code kinematics----
+force_plate_data = np.loadtxt("Project 1/walking_FP.txt", skiprows=1) 
 
 # Assuming the file "walking.txt" is in the "Project 1" folder relative to your current working directory.
 file_path = "Project 1/walking.txt"
