@@ -7,7 +7,7 @@ import math
 ## ------------------------------------ ##
 
 #data_normwalk = np.loadtxt("Project 1/walking.txt",skiprows=1)
-data_normwalk = np.loadtxt("Project 1\walking.txt",skiprows=1)
+data_normwalk = np.loadtxt("Project 1/walking.txt",skiprows=1)
 # i had to change \ to / to run the code /Tor
 
 ## Right gait ##
@@ -340,7 +340,7 @@ plt.legend(fontsize= 20)
 ## Data for Crouch walking - kinematics ##
 ## ------------------------------------ ##
 
-data_crouchwalk = np.loadtxt("Project 1\crouch.txt",skiprows=1)
+data_crouchwalk = np.loadtxt("Project 1/crouch.txt",skiprows=1)
 
 ## Right gait ##
 ## ---------- ##
