@@ -102,7 +102,7 @@ for i in range(tOffR - tOnR):
     deltax = footRX[i] - ankleRX[i]
     angle_radians = math.atan2(deltay,deltax)
     angle_degrees = math.degrees(angle_radians)
-    ankleangleR[i] = angle_degrees - angle_degrees_shank
+    ankleangleR[i] = angle_degrees - angle_degrees_shank + 5
 
 ## Left gait ##
 ## --------- ##
@@ -196,7 +196,7 @@ for i in range(tOffL - tOnL):
     deltax = footLX[i] - ankleLX[i]
     angle_radians = math.atan2(deltay,deltax)
     angle_degrees = math.degrees(angle_radians)
-    ankleangleL[i] = angle_degrees - angle_degrees_shank
+    ankleangleL[i] = angle_degrees - angle_degrees_shank + 5
 
 ## Graph for comparison of Left and Right Gait Normal walking ##
 ## ---------------------------------------------------------- ##
@@ -326,14 +326,14 @@ plt.grid('True')
 for tickLabel in plt.gca().get_xticklabels() + plt.gca().get_yticklabels():
   tickLabel.set_fontsize(16)
 
-plt.text(-11, -120, 'Plantarflexion', color='red',fontsize=18, rotation=90)
-plt.text(-11, 0, 'Dorsiflexion', color='green',fontsize=18, rotation=90)
+plt.text(-11, -115, 'Plantarflexion', color='red',fontsize=18, rotation=90)
+plt.text(-11, 5, 'Dorsiflexion', color='green',fontsize=18, rotation=90)
 plt.axhline(y=0, color='k')
 
-ax4.vlines(x=0.2, ymin=0, ymax=40, color='green',linewidth=12)
-ax4.vlines(x=0.2, ymin=-120, ymax=0, color='red',linewidth=12)
+ax4.vlines(x=0.2, ymin=0, ymax=45, color='green',linewidth=12)
+ax4.vlines(x=0.2, ymin=-115, ymax=0, color='red',linewidth=12)
 
-plt.axis([0,100,-120,40])
+plt.axis([0,100,-115,45])
 plt.legend(fontsize= 20)
 
 ## ------------------------------------ ##
@@ -434,9 +434,9 @@ for i in range(tOff - tOn):
     deltax = footCX[i] - ankleCX[i]
     angle_radians = math.atan2(deltay,deltax)
     angle_degrees = math.degrees(angle_radians)
-    ankleangleC[i] = angle_degrees - angle_degrees_shank
+    ankleangleC[i] = angle_degrees - angle_degrees_shank + 5
 
-## Graph for comparison of Left and Right Gait Normal walking ##
+## Graph for comparison of Right Gait Normal and Crouch walking ##
 ## ---------------------------------------------------------- ##
 
 # Trunk angle comparison #
@@ -564,14 +564,14 @@ plt.grid('True')
 for tickLabel in plt.gca().get_xticklabels() + plt.gca().get_yticklabels():
   tickLabel.set_fontsize(16)
 
-plt.text(-11, -115, 'Plantarflexion', color='red',fontsize=18, rotation=90)
-plt.text(-11, 0, 'Dorsiflexion', color='green',fontsize=18, rotation=90)
+plt.text(-11, -110, 'Plantarflexion', color='red',fontsize=18, rotation=90)
+plt.text(-11, 5, 'Dorsiflexion', color='green',fontsize=18, rotation=90)
 plt.axhline(y=0, color='k')
 
-ax40.vlines(x=0.2, ymin=0, ymax=40, color='green',linewidth=12)
-ax40.vlines(x=0.2, ymin=-120, ymax=0, color='red',linewidth=12)
+ax40.vlines(x=0.2, ymin=0, ymax=45, color='green',linewidth=12)
+ax40.vlines(x=0.2, ymin=-115, ymax=0, color='red',linewidth=12)
 
-plt.axis([0,100,-120,40])
+plt.axis([0,100,-115,45])
 plt.legend(fontsize= 20)
 
 plt.show()
