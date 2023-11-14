@@ -239,7 +239,7 @@ print("Ankle Dorsiflexor Force:", ankle_dorsiflexor_force)
 print("Ankle Plantarflexor Force:", ankle_plantarflexor_force)
 #code to give correct variable names
 ankle_force_y+footRY=foot_mass*ankle_angular_acceleration_y
-ankle_force_z=foot_mass*ankle_angular_acceleration_z-footRX
+ankle_force_z+footRX=foot_mass*ankle_angular_acceleration_z-footRX
 ankle_force_y=foot_mass-footRX
 
 #from your notes x to y, y to z, z to x
