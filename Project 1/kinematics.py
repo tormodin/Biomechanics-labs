@@ -211,6 +211,8 @@ for i in range(tOffL - tOnL):
 # ax.axvline((tNormR[270-tOnR-1]-tNormR[0])/(tNormR[-1]-tNormR[0])*100,color='mediumblue',linestyle='dotted',label='toe-off right gait')
 # ax.plot((tNormL-tNormL[0])/(tNormL[-1]-tNormL[0])*100,trunkangleL, c='darkorange',label = 'Left Gait')
 # ax.axvline((tNormL[316-tOnL-1]-tNormL[0])/(tNormL[-1]-tNormL[0])*100,color='darkorange',linestyle='dotted',label='toe-off left gait')
+# ax.plot((tCrouchR-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,trunkangleC, c='darkcyan',label = 'Crouch Gait')
+# ax.axvline((tCrouchR[484-tOn-1]-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,color='darkcyan',linestyle='dotted',label='toe-off crouch gait')
 
 # plt.xlabel("Percentage of gait cycle [%]",fontsize=20)
 # plt.ylabel("Trunk angle [°]",fontsize=20)
@@ -219,14 +221,14 @@ for i in range(tOffL - tOnL):
 # for tickLabel in plt.gca().get_xticklabels() + plt.gca().get_yticklabels():
 #   tickLabel.set_fontsize(16)
 
-# plt.text(-11, -4, 'Posterior tilt', color='red',fontsize=18, rotation=90)
-# plt.text(-11, -0.3, 'Anterior tilt', color='green',fontsize=18, rotation=90)
+# plt.text(-11, -5, 'Posterior tilt', color='red',fontsize=18, rotation=90)
+# plt.text(-11, 14, 'Anterior tilt', color='green',fontsize=18, rotation=90)
 # plt.axhline(y=0, color='k')
 
-# ax.vlines(x=0.2, ymin=0, ymax=1, color='green',linewidth=12)
+# ax.vlines(x=0.2, ymin=0, ymax=20, color='green',linewidth=12)
 # ax.vlines(x=0.2, ymin=-5, ymax=0, color='red',linewidth=12)
 
-# plt.axis([0,100,-4,0.5])
+# plt.axis([0,100,-5,20])
 # plt.legend(fontsize= 20)
 
 # # Pelvis angle comparison #
@@ -238,6 +240,8 @@ for i in range(tOffL - tOnL):
 # ax1.axvline((tNormR[270-tOnR-1]-tNormR[0])/(tNormR[-1]-tNormR[0])*100,color='mediumblue',linestyle='dotted',label='toe-off right gait')
 # ax1.plot((tNormL-tNormL[0])/(tNormL[-1]-tNormL[0])*100,pelvisangleL, c='darkorange',label = 'Left Gait')
 # ax1.axvline((tNormL[316-tOnL-1]-tNormL[0])/(tNormL[-1]-tNormL[0])*100,color='darkorange',linestyle='dotted',label='toe-off left gait')
+# ax1.plot((tCrouchR-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,pelvisangleC, c='darkcyan',label = 'Crouch Gait')
+# ax1.axvline((tCrouchR[484-tOn-1]-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,color='darkcyan',linestyle='dotted',label='toe-off crouch gait')
 
 # plt.xlabel("Percentage of gait cycle [%]",fontsize=20)
 # plt.ylabel("Pelvis angle [°]",fontsize=20)
@@ -247,13 +251,13 @@ for i in range(tOffL - tOnL):
 #   tickLabel.set_fontsize(16)
 
 # plt.text(-11, -1, 'Posterior tilt', color='red',fontsize=18, rotation=90)
-# plt.text(-11, 11, 'Anterior tilt', color='green',fontsize=18, rotation=90)
+# plt.text(-11, 20, 'Anterior tilt', color='green',fontsize=18, rotation=90)
 # plt.axhline(y=0, color='k')
 
-# ax1.vlines(x=0.2, ymin=0, ymax=15, color='green',linewidth=12)
-# ax1.vlines(x=0.2, ymin=-0.5, ymax=0, color='red',linewidth=12)
+# ax1.vlines(x=0.2, ymin=0, ymax=30, color='green',linewidth=12)
+# ax1.vlines(x=0.2, ymin=-1, ymax=0, color='red',linewidth=12)
 
-# plt.axis([0,100,-0.5,15])
+# plt.axis([0,100,-1,30])
 # plt.legend(fontsize= 20)
 
 # # Hip angle comparison #
@@ -265,6 +269,8 @@ for i in range(tOffL - tOnL):
 # ax2.axvline((tNormR[270-tOnR-1]-tNormR[0])/(tNormR[-1]-tNormR[0])*100,color='mediumblue',linestyle='dotted',label='toe-off right gait')
 # ax2.plot((tNormL-tNormL[0])/(tNormL[-1]-tNormL[0])*100,hipangleL, c='darkorange',label = 'Left Gait')
 # ax2.axvline((tNormL[316-tOnL-1]-tNormL[0])/(tNormL[-1]-tNormL[0])*100,color='darkorange',linestyle='dotted',label='toe-off left gait')
+# ax2.plot((tCrouchR-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,hipangleC, c='darkcyan',label = 'Crouch Gait')
+# ax2.axvline((tCrouchR[484-tOn-1]-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,color='darkcyan',linestyle='dotted',label='toe-off crouch gait')
 
 # plt.xlabel("Percentage of gait cycle [%]",fontsize=20)
 # plt.ylabel("Hip angle [°]",fontsize=20)
@@ -273,14 +279,14 @@ for i in range(tOffL - tOnL):
 # for tickLabel in plt.gca().get_xticklabels() + plt.gca().get_yticklabels():
 #   tickLabel.set_fontsize(16)
 
-# plt.text(-11, -12, 'Extension', color='red',fontsize=18, rotation=90)
-# plt.text(-11, 25, 'Flexion', color='green',fontsize=18, rotation=90)
+# plt.text(-11, -15, 'Extension', color='red',fontsize=18, rotation=90)
+# plt.text(-11, 50, 'Flexion', color='green',fontsize=18, rotation=90)
 # plt.axhline(y=0, color='k')
 
-# ax2.vlines(x=0.2, ymin=0, ymax=40, color='green',linewidth=12)
+# ax2.vlines(x=0.2, ymin=0, ymax=70, color='green',linewidth=12)
 # ax2.vlines(x=0.2, ymin=-15, ymax=0, color='red',linewidth=12)
 
-# plt.axis([0,100,-15,40])
+# plt.axis([0,100,-15,70])
 # plt.legend(fontsize= 20)
 
 # # Knee angle comparison #
@@ -292,6 +298,8 @@ for i in range(tOffL - tOnL):
 # ax3.axvline((tNormR[270-tOnR-1]-tNormR[0])/(tNormR[-1]-tNormR[0])*100,color='mediumblue',linestyle='dotted',label='toe-off right gait')
 # ax3.plot((tNormL-tNormL[0])/(tNormL[-1]-tNormL[0])*100,kneeangleL, c='darkorange',label = 'Left Gait')
 # ax3.axvline((tNormL[316-tOnL-1]-tNormL[0])/(tNormL[-1]-tNormL[0])*100,color='darkorange',linestyle='dotted',label='toe-off left gait')
+# ax3.plot((tCrouchR-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,kneeangleC, c='darkcyan',label = 'Crouch Gait')
+# ax3.axvline((tCrouchR[484-tOn-1]-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,color='darkcyan',linestyle='dotted',label='toe-off crouch gait')
 
 # plt.xlabel("Percentage of gait cycle [%]",fontsize=20)
 # plt.ylabel("Knee angle [°]",fontsize=20)
@@ -301,41 +309,43 @@ for i in range(tOffL - tOnL):
 #   tickLabel.set_fontsize(16)
 
 # plt.text(-11, -7, 'Hyperextension', color='red',fontsize=18, rotation=90)
-# plt.text(-11, 40, 'Flexion', color='green',fontsize=18, rotation=90)
+# plt.text(-11, 50, 'Flexion', color='green',fontsize=18, rotation=90)
 # plt.axhline(y=0, color='k')
 
-# ax3.vlines(x=0.2, ymin=0, ymax=55, color='green',linewidth=12)
+# ax3.vlines(x=0.2, ymin=0, ymax=70, color='green',linewidth=12)
 # ax3.vlines(x=0.2, ymin=-5, ymax=0, color='red',linewidth=12)
 
-# plt.axis([0,100,-5,55])
+# plt.axis([0,100,-5,70])
 # plt.legend(fontsize= 20)
 
-# Ankle angle comparison #
+# # Ankle angle comparison #
 
-fig4, ax4 = plt.subplots()
-fig4.set_size_inches(15, 8)
+# fig4, ax4 = plt.subplots()
+# fig4.set_size_inches(15, 8)
  
-ax4.plot((tNormR-tNormR[0])/(tNormR[-1]-tNormR[0])*100,ankleangleR,c='mediumblue',label='Right Gait')
-ax4.axvline((tNormR[270-tOnR-1]-tNormR[0])/(tNormR[-1]-tNormR[0])*100,color='mediumblue',linestyle='dotted',label='toe-off right gait')
-ax4.plot((tNormL-tNormL[0])/(tNormL[-1]-tNormL[0])*100,ankleangleL, c='darkorange',label = 'Left Gait')
-ax4.axvline((tNormL[316-tOnL-1]-tNormL[0])/(tNormL[-1]-tNormL[0])*100,color='darkorange',linestyle='dotted',label='toe-off left gait')
+# ax4.plot((tNormR-tNormR[0])/(tNormR[-1]-tNormR[0])*100,ankleangleR,c='mediumblue',label='Right Gait')
+# ax4.axvline((tNormR[270-tOnR-1]-tNormR[0])/(tNormR[-1]-tNormR[0])*100,color='mediumblue',linestyle='dotted',label='toe-off right gait')
+# ax4.plot((tNormL-tNormL[0])/(tNormL[-1]-tNormL[0])*100,ankleangleL, c='darkorange',label = 'Left Gait')
+# ax4.axvline((tNormL[316-tOnL-1]-tNormL[0])/(tNormL[-1]-tNormL[0])*100,color='darkorange',linestyle='dotted',label='toe-off left gait')
+# ax4.plot((tCrouchR-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,ankleangleC, c='darkcyan',label = 'Crouch Gait')
+# ax4.axvline((tCrouchR[484-tOn-1]-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,color='darkcyan',linestyle='dotted',label='toe-off crouch gait')
 
-plt.xlabel("Percentage of gait cycle [%]",fontsize=20)
-plt.ylabel("Ankle angle [°]",fontsize=20)
-plt.grid('True')
+# plt.xlabel("Percentage of gait cycle [%]",fontsize=20)
+# plt.ylabel("Ankle angle [°]",fontsize=20)
+# plt.grid('True')
 
-for tickLabel in plt.gca().get_xticklabels() + plt.gca().get_yticklabels():
-  tickLabel.set_fontsize(16)
+# for tickLabel in plt.gca().get_xticklabels() + plt.gca().get_yticklabels():
+#   tickLabel.set_fontsize(16)
 
-plt.text(-11, -20, 'Plantarflexion', color='red',fontsize=18, rotation=90)
-plt.text(-11, 5, 'Dorsiflexion', color='green',fontsize=18, rotation=90)
-plt.axhline(y=0, color='k')
+# plt.text(-11, -20, 'Plantarflexion', color='red',fontsize=18, rotation=90)
+# plt.text(-11, 15, 'Dorsiflexion', color='green',fontsize=18, rotation=90)
+# plt.axhline(y=0, color='k')
 
-ax4.vlines(x=0.2, ymin=0, ymax=15, color='green',linewidth=12)
-ax4.vlines(x=0.2, ymin=-20, ymax=0, color='red',linewidth=12)
+# ax4.vlines(x=0.2, ymin=0, ymax=30, color='green',linewidth=12)
+# ax4.vlines(x=0.2, ymin=-20, ymax=0, color='red',linewidth=12)
 
-plt.axis([0,100,-20,15])
-plt.legend(fontsize= 20)
+# plt.axis([0,100,-20,30])
+# plt.legend(fontsize= 20)
 
 
 ## Writing in files ##
@@ -559,15 +569,163 @@ for i in range(tOff - tOn):
 # plt.axis([0,100,-5,70])
 # plt.legend(fontsize= 20)
 
+# # Ankle angle comparison #
+
+# fig40, ax40 = plt.subplots()
+# fig40.set_size_inches(15, 8)
+ 
+# ax40.plot((tNormR-tNormR[0])/(tNormR[-1]-tNormR[0])*100,ankleangleR,c='mediumblue',label='Normal Gait')
+# ax40.axvline((tNormR[270-tOnR-1]-tNormR[0])/(tNormR[-1]-tNormR[0])*100,color='mediumblue',linestyle='dotted',label='toe-off normal gait')
+# ax40.plot((tCrouchR-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,ankleangleC, c='darkorange',label = 'Crouch Gait')
+# ax40.axvline((tCrouchR[484-tOn-1]-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,color='darkorange',linestyle='dotted',label='toe-off crouch gait')
+
+# plt.xlabel("Percentage of gait cycle [%]",fontsize=20)
+# plt.ylabel("Ankle angle [°]",fontsize=20)
+# plt.grid('True')
+
+# for tickLabel in plt.gca().get_xticklabels() + plt.gca().get_yticklabels():
+#   tickLabel.set_fontsize(16)
+
+# plt.text(-11, -20, 'Plantarflexion', color='red',fontsize=18, rotation=90)
+# plt.text(-11, 15, 'Dorsiflexion', color='green',fontsize=18, rotation=90)
+# plt.axhline(y=0, color='k')
+
+# ax40.vlines(x=0.2, ymin=0, ymax=30, color='green',linewidth=12)
+# ax40.vlines(x=0.2, ymin=-20, ymax=0, color='red',linewidth=12)
+
+# plt.axis([0,100,-20,30])
+# plt.legend(fontsize= 20)
+
+## Graph for comparison of Left and Right Gait Normal walking and Right Crouch walking ##
+## ----------------------------------------------------------------------------------- ##
+
+# Trunk angle comparison #
+
+fig, ax = plt.subplots()
+fig.set_size_inches(15, 8)
+ 
+ax.plot((tNormR-tNormR[0])/(tNormR[-1]-tNormR[0])*100,trunkangleR,c='mediumblue',label='Right Gait')
+ax.axvline((tNormR[270-tOnR-1]-tNormR[0])/(tNormR[-1]-tNormR[0])*100,color='mediumblue',linestyle='dotted',label='toe-off right gait')
+ax.plot((tNormL-tNormL[0])/(tNormL[-1]-tNormL[0])*100,trunkangleL, c='darkorange',label = 'Left Gait')
+ax.axvline((tNormL[316-tOnL-1]-tNormL[0])/(tNormL[-1]-tNormL[0])*100,color='darkorange',linestyle='dotted',label='toe-off left gait')
+ax.plot((tCrouchR-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,trunkangleC, c='darkcyan',label = 'Crouch Gait')
+ax.axvline((tCrouchR[484-tOn-1]-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,color='darkcyan',linestyle='dotted',label='toe-off crouch gait')
+
+plt.xlabel("Percentage of gait cycle [%]",fontsize=20)
+plt.ylabel("Trunk angle [°]",fontsize=20)
+plt.grid('True')
+
+for tickLabel in plt.gca().get_xticklabels() + plt.gca().get_yticklabels():
+  tickLabel.set_fontsize(16)
+
+plt.text(-11, -5, 'Posterior tilt', color='red',fontsize=18, rotation=90)
+plt.text(-11, 14, 'Anterior tilt', color='green',fontsize=18, rotation=90)
+plt.axhline(y=0, color='k')
+
+ax.vlines(x=0.2, ymin=0, ymax=20, color='green',linewidth=12)
+ax.vlines(x=0.2, ymin=-5, ymax=0, color='red',linewidth=12)
+
+plt.axis([0,100,-5,20])
+plt.legend(fontsize= 20)
+
+# Pelvis angle comparison #
+
+fig1, ax1 = plt.subplots()
+fig1.set_size_inches(15, 8)
+ 
+ax1.plot((tNormR-tNormR[0])/(tNormR[-1]-tNormR[0])*100,pelvisangleR,c='mediumblue',label='Right Gait')
+ax1.axvline((tNormR[270-tOnR-1]-tNormR[0])/(tNormR[-1]-tNormR[0])*100,color='mediumblue',linestyle='dotted',label='toe-off right gait')
+ax1.plot((tNormL-tNormL[0])/(tNormL[-1]-tNormL[0])*100,pelvisangleL, c='darkorange',label = 'Left Gait')
+ax1.axvline((tNormL[316-tOnL-1]-tNormL[0])/(tNormL[-1]-tNormL[0])*100,color='darkorange',linestyle='dotted',label='toe-off left gait')
+ax1.plot((tCrouchR-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,pelvisangleC, c='darkcyan',label = 'Crouch Gait')
+ax1.axvline((tCrouchR[484-tOn-1]-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,color='darkcyan',linestyle='dotted',label='toe-off crouch gait')
+
+plt.xlabel("Percentage of gait cycle [%]",fontsize=20)
+plt.ylabel("Pelvis angle [°]",fontsize=20)
+plt.grid('True')
+
+for tickLabel in plt.gca().get_xticklabels() + plt.gca().get_yticklabels():
+  tickLabel.set_fontsize(16)
+
+plt.text(-11, -1, 'Posterior tilt', color='red',fontsize=18, rotation=90)
+plt.text(-11, 20, 'Anterior tilt', color='green',fontsize=18, rotation=90)
+plt.axhline(y=0, color='k')
+
+ax1.vlines(x=0.2, ymin=0, ymax=30, color='green',linewidth=12)
+ax1.vlines(x=0.2, ymin=-1, ymax=0, color='red',linewidth=12)
+
+plt.axis([0,100,-1,30])
+plt.legend(fontsize= 20)
+
+# Hip angle comparison #
+
+fig2, ax2 = plt.subplots()
+fig2.set_size_inches(15, 8)
+ 
+ax2.plot((tNormR-tNormR[0])/(tNormR[-1]-tNormR[0])*100,hipangleR,c='mediumblue',label='Right Gait')
+ax2.axvline((tNormR[270-tOnR-1]-tNormR[0])/(tNormR[-1]-tNormR[0])*100,color='mediumblue',linestyle='dotted',label='toe-off right gait')
+ax2.plot((tNormL-tNormL[0])/(tNormL[-1]-tNormL[0])*100,hipangleL, c='darkorange',label = 'Left Gait')
+ax2.axvline((tNormL[316-tOnL-1]-tNormL[0])/(tNormL[-1]-tNormL[0])*100,color='darkorange',linestyle='dotted',label='toe-off left gait')
+ax2.plot((tCrouchR-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,hipangleC, c='darkcyan',label = 'Crouch Gait')
+ax2.axvline((tCrouchR[484-tOn-1]-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,color='darkcyan',linestyle='dotted',label='toe-off crouch gait')
+
+plt.xlabel("Percentage of gait cycle [%]",fontsize=20)
+plt.ylabel("Hip angle [°]",fontsize=20)
+plt.grid('True')
+
+for tickLabel in plt.gca().get_xticklabels() + plt.gca().get_yticklabels():
+  tickLabel.set_fontsize(16)
+
+plt.text(-11, -15, 'Extension', color='red',fontsize=18, rotation=90)
+plt.text(-11, 50, 'Flexion', color='green',fontsize=18, rotation=90)
+plt.axhline(y=0, color='k')
+
+ax2.vlines(x=0.2, ymin=0, ymax=70, color='green',linewidth=12)
+ax2.vlines(x=0.2, ymin=-15, ymax=0, color='red',linewidth=12)
+
+plt.axis([0,100,-15,70])
+plt.legend(fontsize= 20)
+
+# Knee angle comparison #
+
+fig3, ax3 = plt.subplots()
+fig3.set_size_inches(15, 8)
+ 
+ax3.plot((tNormR-tNormR[0])/(tNormR[-1]-tNormR[0])*100,kneeangleR,c='mediumblue',label='Right Gait')
+ax3.axvline((tNormR[270-tOnR-1]-tNormR[0])/(tNormR[-1]-tNormR[0])*100,color='mediumblue',linestyle='dotted',label='toe-off right gait')
+ax3.plot((tNormL-tNormL[0])/(tNormL[-1]-tNormL[0])*100,kneeangleL, c='darkorange',label = 'Left Gait')
+ax3.axvline((tNormL[316-tOnL-1]-tNormL[0])/(tNormL[-1]-tNormL[0])*100,color='darkorange',linestyle='dotted',label='toe-off left gait')
+ax3.plot((tCrouchR-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,kneeangleC, c='darkcyan',label = 'Crouch Gait')
+ax3.axvline((tCrouchR[484-tOn-1]-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,color='darkcyan',linestyle='dotted',label='toe-off crouch gait')
+
+plt.xlabel("Percentage of gait cycle [%]",fontsize=20)
+plt.ylabel("Knee angle [°]",fontsize=20)
+plt.grid('True')
+
+for tickLabel in plt.gca().get_xticklabels() + plt.gca().get_yticklabels():
+  tickLabel.set_fontsize(16)
+
+plt.text(-11, -7, 'Hyperextension', color='red',fontsize=18, rotation=90)
+plt.text(-11, 50, 'Flexion', color='green',fontsize=18, rotation=90)
+plt.axhline(y=0, color='k')
+
+ax3.vlines(x=0.2, ymin=0, ymax=70, color='green',linewidth=12)
+ax3.vlines(x=0.2, ymin=-5, ymax=0, color='red',linewidth=12)
+
+plt.axis([0,100,-5,70])
+plt.legend(fontsize= 20)
+
 # Ankle angle comparison #
 
-fig40, ax40 = plt.subplots()
-fig40.set_size_inches(15, 8)
+fig4, ax4 = plt.subplots()
+fig4.set_size_inches(15, 8)
  
-ax40.plot((tNormR-tNormR[0])/(tNormR[-1]-tNormR[0])*100,ankleangleR,c='mediumblue',label='Normal Gait')
-ax40.axvline((tNormR[270-tOnR-1]-tNormR[0])/(tNormR[-1]-tNormR[0])*100,color='mediumblue',linestyle='dotted',label='toe-off normal gait')
-ax40.plot((tCrouchR-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,ankleangleC, c='darkorange',label = 'Crouch Gait')
-ax40.axvline((tCrouchR[484-tOn-1]-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,color='darkorange',linestyle='dotted',label='toe-off crouch gait')
+ax4.plot((tNormR-tNormR[0])/(tNormR[-1]-tNormR[0])*100,ankleangleR,c='mediumblue',label='Right Gait')
+ax4.axvline((tNormR[270-tOnR-1]-tNormR[0])/(tNormR[-1]-tNormR[0])*100,color='mediumblue',linestyle='dotted',label='toe-off right gait')
+ax4.plot((tNormL-tNormL[0])/(tNormL[-1]-tNormL[0])*100,ankleangleL, c='darkorange',label = 'Left Gait')
+ax4.axvline((tNormL[316-tOnL-1]-tNormL[0])/(tNormL[-1]-tNormL[0])*100,color='darkorange',linestyle='dotted',label='toe-off left gait')
+ax4.plot((tCrouchR-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,ankleangleC, c='darkcyan',label = 'Crouch Gait')
+ax4.axvline((tCrouchR[484-tOn-1]-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,color='darkcyan',linestyle='dotted',label='toe-off crouch gait')
 
 plt.xlabel("Percentage of gait cycle [%]",fontsize=20)
 plt.ylabel("Ankle angle [°]",fontsize=20)
@@ -580,11 +738,11 @@ plt.text(-11, -20, 'Plantarflexion', color='red',fontsize=18, rotation=90)
 plt.text(-11, 15, 'Dorsiflexion', color='green',fontsize=18, rotation=90)
 plt.axhline(y=0, color='k')
 
-ax40.vlines(x=0.2, ymin=0, ymax=30, color='green',linewidth=12)
-ax40.vlines(x=0.2, ymin=-20, ymax=0, color='red',linewidth=12)
+ax4.vlines(x=0.2, ymin=0, ymax=30, color='green',linewidth=12)
+ax4.vlines(x=0.2, ymin=-20, ymax=0, color='red',linewidth=12)
 
 plt.axis([0,100,-20,30])
-plt.legend(fontsize= 20)
+plt.legend(fontsize= 20,loc='upper right')
 
 plt.show()
 
