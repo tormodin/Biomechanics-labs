@@ -224,6 +224,8 @@ F_Hx_R = mt*atRx - F_Kx_R
 F_Hy_R = mt*atRy + mt*g + F_Ky_R
 M_H_r = It*alphatR - dH_xR*F_Hy_R + dH_yR*F_Hx_R + M_K_r - ltdH_yR*F_Kx_R + ltdH_xR*F_Ky_R
 
+# Power
+
 ## Left Gait ##
 
 tOnL = 261 # = frame 262 = line 262 - 1 because header
@@ -486,11 +488,11 @@ plt.legend(fontsize= 20)
 fig2, ax2 = plt.subplots()
 fig2.set_size_inches(15, 8)
  
-ax2.plot((tNormR-tNormR[0])/(tNormR[-1]-tNormR[0])*100,M_H_r/weight,c='mediumblue',label='Right Gait')
+ax2.plot((tNormR-tNormR[0])/(tNormR[-1]-tNormR[0])*100,-M_H_r/weight,c='mediumblue',label='Right Gait')
 ax2.axvline((tNormR[270-tOnR-1]-tNormR[0])/(tNormR[-1]-tNormR[0])*100,color='mediumblue',linestyle='dotted',label='toe-off right gait')
-ax2.plot((tNormL-tNormL[0])/(tNormL[-1]-tNormL[0])*100,M_H_l/weight, c='darkorange',label = 'Left Gait')
+ax2.plot((tNormL-tNormL[0])/(tNormL[-1]-tNormL[0])*100,-M_H_l/weight, c='darkorange',label = 'Left Gait')
 ax2.axvline((tNormL[316-tOnL-1]-tNormL[0])/(tNormL[-1]-tNormL[0])*100,color='darkorange',linestyle='dotted',label='toe-off left gait')
-ax2.plot((tCrouchR-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,M_H_c/weight, c='darkcyan',label = 'Crouch Gait')
+ax2.plot((tCrouchR-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,-M_H_c/weight, c='darkcyan',label = 'Crouch Gait')
 ax2.axvline((tCrouchR[484-tOn-1]-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,color='darkcyan',linestyle='dotted',label='toe-off crouch gait')
 
 plt.xlabel("Percentage of gait cycle [%]",fontsize=20)
@@ -500,14 +502,14 @@ plt.grid('True')
 for tickLabel in plt.gca().get_xticklabels() + plt.gca().get_yticklabels():
   tickLabel.set_fontsize(16)
 
-plt.text(-11, -3, 'Flexion', color='red',fontsize=18, rotation=90)
-plt.text(-11, 1.5, 'Extension', color='green',fontsize=18, rotation=90)
+plt.text(-11, -2.5, 'Flexion', color='red',fontsize=18, rotation=90)
+plt.text(-11, 2, 'Extension', color='green',fontsize=18, rotation=90)
 plt.axhline(y=0, color='k')
 
 ax2.vlines(x=0.2, ymin=0, ymax=40, color='green',linewidth=12)
 ax2.vlines(x=0.2, ymin=-15, ymax=0, color='red',linewidth=12)
 
-plt.axis([0,100,-3,2.5])
+plt.axis([0,100,-2.5,3.0])
 plt.legend(fontsize= 20)
 
 plt.show()
