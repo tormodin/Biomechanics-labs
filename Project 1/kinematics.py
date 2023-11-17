@@ -7,7 +7,7 @@ import math
 ## ------------------------------------ ##
 
 #data_normwalk = np.loadtxt("Project 1/walking.txt",skiprows=1)
-data_normwalk = np.loadtxt("Project 1/walking.txt",skiprows=1)
+data_normwalk = np.loadtxt("Project 1/walking.txt",skiprows=1) # /!\ The csv data were converted to txt files with a tab separator
 # i had to change \ to / to run the code /Tor
 
 ## Right gait ##

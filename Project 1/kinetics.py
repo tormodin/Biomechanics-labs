@@ -126,7 +126,7 @@ def calculate_distance_vector(ax, ay, bx, by):
 ## Data for Normal walking - kinetics ##
 ## ---------------------------------- ##
 
-data_normwalk = np.loadtxt("Project 1/walking.txt",skiprows=1)
+data_normwalk = np.loadtxt("Project 1/walking.txt",skiprows=1) # /!\ The csv data were converted to txt files with a tab separator
 angles_normR = np.loadtxt("Project 1/kinematics_norm_R.txt")
 angles_normL = np.loadtxt("Project 1/kinematics_norm_L.txt")
 forces_norm = np.loadtxt("Project 1/walking_FP.txt",skiprows=1)
@@ -186,7 +186,7 @@ M_A_r = If*alphafR - dA_xR*F_Ay_R + dA_yR*F_Ax_R - dG_xR*F_gR_Y + dG_yR*F_gR_X
 
 # Shank equations
 
-shankangleR = np.radians(angles_normR[:,3])
+shankangleR = -np.radians(angles_normR[:,3])
 CsxR = np.zeros_like(kneeRX)
 CsyR = np.zeros_like(kneeRY)
 for i in range(len(kneeRX)):
@@ -225,6 +225,10 @@ F_Hy_R = mt*atRy + mt*g + F_Ky_R
 M_H_r = It*alphatR - dH_xR*F_Hy_R + dH_yR*F_Hx_R + M_K_r - ltdH_yR*F_Kx_R + ltdH_xR*F_Ky_R
 
 # Power
+
+Pow_ankle_R = (-M_A_r/weight)*omegafR
+Pow_knee_R = (M_K_r/weight)*omegasR
+Pow_hip_R = (-M_H_r/weight)*omegatR
 
 ## Left Gait ##
 
@@ -280,7 +284,7 @@ M_A_l = If*alphafL - dA_xL*F_Ay_L + dA_yL*F_Ax_L - dG_xL*F_gL_Y + dG_yL*F_gL_X
 
 # Shank equations
 
-shankangleL = np.radians(angles_normL[:,3])
+shankangleL = -np.radians(angles_normL[:,3])
 CsxL = np.zeros_like(kneeLX)
 CsyL = np.zeros_like(kneeLY)
 for i in range(len(kneeLX)):
@@ -297,6 +301,7 @@ lsdK_xL,lsdK_yL = calculate_distance_vector(CsxL,CsyL,ankleLX,ankleLY)
 F_Kx_L = ms*asLx - F_Ax_L
 F_Ky_L = ms*asLy + ms*g + F_Ay_L
 M_K_l = Is*alphasL - dK_xL*F_Ky_L + dK_yL*F_Kx_L + M_A_l - lsdK_yL*F_Ax_L + lsdK_xL*F_Ay_L
+
 
 # Thigh equations
 
@@ -317,6 +322,12 @@ ltdH_xL,ltdH_yL = calculate_distance_vector(CtxL,CtyL,kneeLX,kneeLY)
 F_Hx_L = mt*atLx - F_Kx_L
 F_Hy_L = mt*atLy + mt*g + F_Ky_L
 M_H_l = It*alphatL - dH_xL*F_Hy_L + dH_yL*F_Hx_L + M_K_l - ltdH_yL*F_Kx_L + ltdH_xL*F_Ky_L
+
+# Power
+
+Pow_ankle_L = (-M_A_l/weight)*omegafL
+Pow_knee_L = (M_K_l/weight)*omegasL
+Pow_hip_L = (-M_H_l/weight)*omegatL
 
 
 ## ---------------------------------- ##
@@ -381,7 +392,7 @@ M_A_c = If*alphafC - dA_xC*F_Ay_C + dA_yC*F_Ax_C - dG_xC*F_gC_Y + dG_yC*F_gC_X
 
 # Shank equations
 
-shankangleC = np.radians(angles_C[:,3])
+shankangleC = -np.radians(angles_C[:,3])
 CsxC = np.zeros_like(kneeCX)
 CsyC = np.zeros_like(kneeCY)
 for i in range(len(kneeCX)):
@@ -419,20 +430,27 @@ F_Hx_C = mt*atCx - F_Kx_C
 F_Hy_C = mt*atCy + mt*g + F_Ky_C
 M_H_c = It*alphatC - dH_xC*F_Hy_C + dH_yC*F_Hx_C + M_K_c - ltdH_yC*F_Kx_C + ltdH_xC*F_Ky_C
 
+
+# Power
+
+Pow_ankle_C = (-M_A_c/weight)*omegafC
+Pow_knee_C = (M_K_c/weight)*omegasC
+Pow_hip_C = (-M_H_c/weight)*omegatC
+
 ## Graphs ##
 ## ------ ##
 
 # Ankle angle comparison #
 
-fig40, ax40 = plt.subplots()
-fig40.set_size_inches(15, 8)
+fig4, ax4 = plt.subplots()
+fig4.set_size_inches(15, 8)
  
-ax40.plot((tNormR-tNormR[0])/(tNormR[-1]-tNormR[0])*100,-M_A_r/weight,c='mediumblue',label='Right Gait')
-ax40.axvline((tNormR[270-tOnR-1]-tNormR[0])/(tNormR[-1]-tNormR[0])*100,color='mediumblue',linestyle='dotted',label='toe-off right gait')
-ax40.plot((tNormL-tNormL[0])/(tNormL[-1]-tNormL[0])*100,-M_A_l/weight, c='darkorange',label = 'Left Gait')
-ax40.axvline((tNormL[316-tOnL-1]-tNormL[0])/(tNormL[-1]-tNormL[0])*100,color='darkorange',linestyle='dotted',label='toe-off left gait')
-ax40.plot((tCrouchR-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,-M_A_c/weight, c='darkcyan',label = 'Crouch Gait')
-ax40.axvline((tCrouchR[484-tOn-1]-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,color='darkcyan',linestyle='dotted',label='toe-off crouch gait')
+ax4.plot((tNormR-tNormR[0])/(tNormR[-1]-tNormR[0])*100,-M_A_r/weight,c='mediumblue',label='Right Gait')
+ax4.axvline((tNormR[270-tOnR-1]-tNormR[0])/(tNormR[-1]-tNormR[0])*100,color='mediumblue',linestyle='dotted',label='toe-off right gait')
+ax4.plot((tNormL-tNormL[0])/(tNormL[-1]-tNormL[0])*100,-M_A_l/weight, c='darkorange',label = 'Left Gait')
+ax4.axvline((tNormL[316-tOnL-1]-tNormL[0])/(tNormL[-1]-tNormL[0])*100,color='darkorange',linestyle='dotted',label='toe-off left gait')
+ax4.plot((tCrouchR-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,-M_A_c/weight, c='darkcyan',label = 'Crouch Gait')
+ax4.axvline((tCrouchR[484-tOn-1]-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,color='darkcyan',linestyle='dotted',label='toe-off crouch gait')
 
 plt.xlabel("Percentage of gait cycle [%]",fontsize=20)
 plt.ylabel("Ankle moment [Nm/kg]",fontsize=20)
@@ -445,8 +463,8 @@ plt.text(-11, -0.4, 'Dorsiflexion', color='red',fontsize=18, rotation=90)
 plt.text(-11, 1.3, 'Plantarflexion', color='green',fontsize=18, rotation=90)
 plt.axhline(y=0, color='k')
 
-ax40.vlines(x=0.2, ymin=0, ymax=45, color='green',linewidth=12)
-ax40.vlines(x=0.2, ymin=-115, ymax=0, color='red',linewidth=12)
+ax4.vlines(x=0.2, ymin=0, ymax=45, color='green',linewidth=12)
+ax4.vlines(x=0.2, ymin=-115, ymax=0, color='red',linewidth=12)
 
 plt.axis([0,100,-0.4,1.8])
 plt.legend(fontsize= 20)
@@ -510,6 +528,93 @@ ax2.vlines(x=0.2, ymin=0, ymax=40, color='green',linewidth=12)
 ax2.vlines(x=0.2, ymin=-15, ymax=0, color='red',linewidth=12)
 
 plt.axis([0,100,-2.5,3.0])
+plt.legend(fontsize=20)
+
+#Ankle power comparison
+
+fig40, ax40 = plt.subplots()
+fig40.set_size_inches(15, 8)
+ 
+ax40.plot((tNormR-tNormR[0])/(tNormR[-1]-tNormR[0])*100,-Pow_ankle_R,c='mediumblue',label='Right Gait')
+ax40.axvline((tNormR[270-tOnR-1]-tNormR[0])/(tNormR[-1]-tNormR[0])*100,color='mediumblue',linestyle='dotted',label='toe-off right gait')
+ax40.plot((tNormL-tNormL[0])/(tNormL[-1]-tNormL[0])*100,-Pow_ankle_L, c='darkorange',label = 'Left Gait')
+ax40.axvline((tNormL[316-tOnL-1]-tNormL[0])/(tNormL[-1]-tNormL[0])*100,color='darkorange',linestyle='dotted',label='toe-off left gait')
+ax40.plot((tCrouchR-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,-Pow_ankle_C, c='darkcyan',label = 'Crouch Gait')
+ax40.axvline((tCrouchR[484-tOn-1]-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,color='darkcyan',linestyle='dotted',label='toe-off crouch gait')
+
+plt.xlabel("Percentage of gait cycle [%]",fontsize=20)
+plt.ylabel("Ankle power [W/kg]",fontsize=20)
+plt.grid('True')
+
+for tickLabel in plt.gca().get_xticklabels() + plt.gca().get_yticklabels():
+  tickLabel.set_fontsize(16)
+
+plt.text(-11, -2, 'Power absorption', color='red',fontsize=18, rotation=90)
+plt.text(-11, 3.5, 'Power generation', color='green',fontsize=18, rotation=90)
+plt.axhline(y=0, color='k')
+
+ax40.vlines(x=0.2, ymin=0, ymax=45, color='green',linewidth=12)
+ax40.vlines(x=0.2, ymin=-115, ymax=0, color='red',linewidth=12)
+
+plt.axis([0,100,-2,5.5])
+plt.legend(fontsize= 20)
+
+# Knee power comparison
+
+fig30, ax30 = plt.subplots()
+fig30.set_size_inches(15, 8)
+ 
+ax30.plot((tNormR-tNormR[0])/(tNormR[-1]-tNormR[0])*100,-Pow_knee_R,c='mediumblue',label='Right Gait')
+ax30.axvline((tNormR[270-tOnR-1]-tNormR[0])/(tNormR[-1]-tNormR[0])*100,color='mediumblue',linestyle='dotted',label='toe-off right gait')
+ax30.plot((tNormL-tNormL[0])/(tNormL[-1]-tNormL[0])*100,-Pow_knee_L, c='darkorange',label = 'Left Gait')
+ax30.axvline((tNormL[316-tOnL-1]-tNormL[0])/(tNormL[-1]-tNormL[0])*100,color='darkorange',linestyle='dotted',label='toe-off left gait')
+ax30.plot((tCrouchR-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,-Pow_knee_C, c='darkcyan',label = 'Crouch Gait')
+ax30.axvline((tCrouchR[484-tOn-1]-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,color='darkcyan',linestyle='dotted',label='toe-off crouch gait')
+
+plt.xlabel("Percentage of gait cycle [%]",fontsize=20)
+plt.ylabel("Knee power  [W/kg]",fontsize=20)
+plt.grid('True')
+
+for tickLabel in plt.gca().get_xticklabels() + plt.gca().get_yticklabels():
+  tickLabel.set_fontsize(16)
+
+plt.text(-11, -2, 'Power absorption', color='red',fontsize=18, rotation=90)
+plt.text(-11, 2, 'Power generation', color='green',fontsize=18, rotation=90)
+plt.axhline(y=0, color='k')
+
+ax30.vlines(x=0.2, ymin=0, ymax=55, color='green',linewidth=12)
+ax30.vlines(x=0.2, ymin=-5, ymax=0, color='red',linewidth=12)
+
+plt.axis([0,100,-2,4])
+plt.legend(fontsize= 20)
+
+# Hip power comparison
+
+fig20, ax20 = plt.subplots()
+fig20.set_size_inches(15, 8)
+ 
+ax20.plot((tNormR-tNormR[0])/(tNormR[-1]-tNormR[0])*100,-Pow_hip_R,c='mediumblue',label='Right Gait')
+ax20.axvline((tNormR[270-tOnR-1]-tNormR[0])/(tNormR[-1]-tNormR[0])*100,color='mediumblue',linestyle='dotted',label='toe-off right gait')
+ax20.plot((tNormL-tNormL[0])/(tNormL[-1]-tNormL[0])*100,-Pow_hip_L, c='darkorange',label = 'Left Gait')
+ax20.axvline((tNormL[316-tOnL-1]-tNormL[0])/(tNormL[-1]-tNormL[0])*100,color='darkorange',linestyle='dotted',label='toe-off left gait')
+ax20.plot((tCrouchR-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,-Pow_hip_C, c='darkcyan',label = 'Crouch Gait')
+ax20.axvline((tCrouchR[484-tOn-1]-tCrouchR[0])/(tCrouchR[-1]-tCrouchR[0])*100,color='darkcyan',linestyle='dotted',label='toe-off crouch gait')
+
+plt.xlabel("Percentage of gait cycle [%]",fontsize=20)
+plt.ylabel("Hip power [W/kg]",fontsize=20)
+plt.grid('True')
+
+for tickLabel in plt.gca().get_xticklabels() + plt.gca().get_yticklabels():
+  tickLabel.set_fontsize(16)
+
+plt.text(-11, -2.5, 'Power absorption', color='red',fontsize=18, rotation=90)
+plt.text(-11, 2.5, 'Power generation', color='green',fontsize=18, rotation=90)
+plt.axhline(y=0, color='k')
+
+ax20.vlines(x=0.2, ymin=0, ymax=40, color='green',linewidth=12)
+ax20.vlines(x=0.2, ymin=-15, ymax=0, color='red',linewidth=12)
+
+plt.axis([0,100,-2.5,4])
 plt.legend(fontsize= 20)
 
 plt.show()
